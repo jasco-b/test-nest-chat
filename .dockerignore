@@ -1,0 +1,7 @@
+#blin ishlamin duribdi
+./runtime/*
+./docker/*
+./node_modules/*
+runtime
+node_modules
+docker

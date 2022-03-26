@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>Chat</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="container-fluid">
+        <div class="auth app d-flex" v-if="!isIn">
+          <div class="col-md-6 col-sm-12">
+            <login v-on:on-login="onLogin"></login>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <register></register>
+          </div>
+        </div>
+        <div v-else class="container">
+          <div class="d-flex">
+            <div class="col-md-4">
+              <chats
+                :chat-list="chats"
+                @create-chat="onCreateChat"
+                @select-chat="onSelectChat"
+                @get-chats="onGetChats"
+                @test="onTest"
+              ></chats>
+            </div>
+            <div class="col-md-8">
+              <chat_container v-if="selectedChat" :chat="selectedChat" @send-message="onSendMessage" :messages="currentMessages"></chat_container>
+              <div
+                v-else
+                class="justify-content-center align-content-center d-flex w-100 h-100"
+              >
+                <div>No chat selected</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/vue.js"></script>
+    <script
+      src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+      integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+      integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>

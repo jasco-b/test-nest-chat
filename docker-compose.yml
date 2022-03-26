@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  db:
+    image: library/postgres:14-alpine
+    container_name: postgres-test
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test123
+      - POSTGRES_DB=app
+    ports:
+      - 5432:5432
+    volumes:
+      - ./runtime/postgresql:/var/lib/postgresql/data
+
+  app:
+    container_name: node-17
+    image: node-17-alpine
+    build:
+      context: .
+      dockerfile: ./dockerfile
+    ports:
+      - 80:3000
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
